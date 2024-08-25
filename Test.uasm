@@ -1,0 +1,6 @@
+// First UASM file
+
+.start @0100
+.offset @0100
+
+
