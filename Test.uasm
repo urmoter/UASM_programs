@@ -3,4 +3,12 @@
 .start @0100
 .offset @0100
 
+MOVA $0A
+MOVB $01
+CPY %B %C
+ADD %A %C
+CPY %C %D
+INC %D
+
+HLT
 
