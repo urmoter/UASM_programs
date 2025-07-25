@@ -2,3 +2,4 @@ Assembler
 CPU
 *.bin
 *.txt
+.DS_Store

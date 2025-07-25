@@ -1,7 +1,7 @@
 // First UASM file
 
 .start @0100
-.offset @0100
+.setloc @0100
 
 MOVA $0A
 MOVB $01

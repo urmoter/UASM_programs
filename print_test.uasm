@@ -1,0 +1,34 @@
+// Print "Hello World\n" to the terminal
+
+.setloc @1000
+// We dont have a .db like other assemblers right now,
+// So we gotta MANUALLY define the bytes in memory
+// The following is "HELLO WORLD\n" in ASCII
+
+LBL str
+    $48 $45 $4C $4C $4F // HELLO
+    $20 // (Space)
+    $57 $4F $52 $4C $44 $0A // WORLD\n
+// setup code
+//      A will be the current char to print
+//      B is the index
+//      C is the length of the string
+
+.setloc @0100
+LBL exit
+    HLT
+
+LBL preloop
+    MOVB $00
+    MOVC $0C
+
+LBL mainloop // Let's make a basic loop to print each character
+             // If we've hit the end of the string, exit the program.
+    JE exit %B %C
+    LDRO str %B %A // Load value at (str+B) to A
+    PRNR %A
+    ENPR
+    INC %B
+    JMP mainloop
+
+.start preloop
