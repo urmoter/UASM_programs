@@ -1,14 +1,12 @@
 // Print "Hello World\n" to the terminal
 
 .setloc @1000
-// We dont have a .db like other assemblers right now,
-// So we gotta MANUALLY define the bytes in memory
-// The following is "HELLO WORLD\n" in ASCII
+
+// string support is added!
 
 LBL str
-    $48 $45 $4C $4C $4F // HELLO
-    $20 // (Space)
-    $57 $4F $52 $4C $44 $0A // WORLD\n
+    .string "HELLO WORLD"
+    $0A
 // setup code
 //      A will be the current char to print
 //      B is the index
