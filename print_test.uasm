@@ -2,11 +2,10 @@
 
 .setloc @1000
 
-// string support is added!
+// Escape characters added!
 
 LBL str
-    .string "HELLO WORLD"
-    $0A
+    .string "HELLO WORLD\n"
 // setup code
 //      A will be the current char to print
 //      B is the index
