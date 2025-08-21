@@ -1,0 +1,49 @@
+// Testing Stack and wide registers
+
+// String
+.setloc @1000
+LBL String
+    .string "HELLO WORLD\n"
+
+.setloc @0100
+LBL print_exit
+    RET
+
+LBL print
+    // get the string to print
+    IBPR $01 %D
+    IBPR $02 %C
+    // get the length
+    IBPR $03 %B
+    // Prepare for A to act as the index and character to print
+    MOVA $00
+
+LBL print_loop
+    // if at the end, exit
+    CMP %A %B
+    JE print_exit
+    // Save the index
+    PSHR %A
+    // Put the indexed character into A
+    LEA wCD %A %A
+    // Print the character
+    PRNR %A
+    ENPR
+    // Retrieve the index and increment it
+    POP %A
+    INC %A
+    // Go back to the check
+    JMP print_loop
+
+
+LBL main
+    // set the length as argument #2
+    PSHI $0C
+    // set string as the argument #1
+    MOVW wAB String
+    PSHW wAB
+
+    CALL print
+    HLT
+
+.start main
