@@ -6,10 +6,10 @@ LBL String
     .string "HELLO WORLD\n\x00"
 
 .setloc @0100
-LBL print_exit
+LBL PUTS_EXIT
     RET
 
-LBL print
+LBL PUTS
     // get the string to print
     IBPR $01 %D
     IBPR $02 %C
@@ -17,14 +17,14 @@ LBL print
     MOVA $00
     MOVB $00
 
-LBL print_loop
+LBL PUTS_LOOP
     // Save the index
     PSHR %A
     // Put the indexed character into A
     LEA wCD %A %A
     // if char is null, exit
     CMP %A %B
-    JE print_exit
+    JE PUTS_EXIT
     // Print the character
     PRNR %A
     ENPR
@@ -32,7 +32,7 @@ LBL print_loop
     POP %A
     INC %A
     // Go back to the check
-    JMP print_loop
+    JMP PUTS_LOOP
 
 
 LBL main
@@ -40,7 +40,7 @@ LBL main
     MOVW wAB String
     PSHW wAB
 
-    CALL print
+    CALL PUTS
     HLT
 
 .start main
