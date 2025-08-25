@@ -1,0 +1,46 @@
+// Testing Null Detection
+
+// String
+.setloc @1000
+LBL String
+    .string "HELLO WORLD\n\x00"
+
+.setloc @0100
+LBL print_exit
+    RET
+
+LBL print
+    // get the string to print
+    IBPR $01 %D
+    IBPR $02 %C
+    // Prepare for A to act as the index and character to print
+    MOVA $00
+    MOVB $00
+
+LBL print_loop
+    // Save the index
+    PSHR %A
+    // Put the indexed character into A
+    LEA wCD %A %A
+    // if char is null, exit
+    CMP %A %B
+    JE print_exit
+    // Print the character
+    PRNR %A
+    ENPR
+    // Retrieve the index and increment it
+    POP %A
+    INC %A
+    // Go back to the check
+    JMP print_loop
+
+
+LBL main
+    // set null-terminated string as the argument #1
+    MOVW wAB String
+    PSHW wAB
+
+    CALL print
+    HLT
+
+.start main
