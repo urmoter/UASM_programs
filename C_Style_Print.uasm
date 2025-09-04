@@ -11,8 +11,7 @@ LBL PUTS_EXIT
 
 LBL PUTS
     // get the string to print
-    IBPR $01 %D
-    IBPR $02 %C
+    IBPW $01 wCD
     // Prepare for A to act as the index and character to print
     MOVA $00
     MOVB $00
